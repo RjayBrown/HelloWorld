@@ -1,0 +1,267 @@
+/* GENERAL STYLES */
+:root {
+    --bg-dark: rgb(2, 13, 29);
+    --bg-light: rgb(230, 230, 230);
+    --bg-header-dark: rgb(13, 25, 48);
+    --bg-header-light: rgb(0, 73, 118);
+    --border-dark: rgb(2, 13, 29);
+    --border-light: rgb(200, 200, 200);
+    --text-dark: rgb(2, 13, 29);
+    --text-light: white;
+    --text-alt: salmon;
+    --text-alt2: lightskyblue;
+}
+
+html {
+    padding: 0;
+}
+
+body {
+    padding: 120px 0;
+
+    font-family: 'Share Tech Mono';
+    text-align: center;
+}
+
+body * {
+    margin: 10px auto;
+}
+
+.container {
+    display: flex;
+    flex-flow: row;
+    place-content: center space-between;
+    text-align: center;
+    align-items: center;
+}
+
+.container-col {
+    display: flex;
+    flex-flow: column;
+    place-content: center center;
+}
+
+.container-col * {
+    margin: auto;
+}
+
+/* THEME STYLES */
+
+.dark {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.light {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.header-dark {
+    background-color: var(--bg-header-dark);
+}
+
+.header-light {
+    background-color: var(--bg-header-light);
+}
+
+.greeting-dark {
+    border: 2px solid var(--border-light);
+}
+
+.greeting-light {
+    border: 2px solid var(--border-dark);
+}
+
+.likeBtn-light {
+    border: 2px solid rgb(2, 13, 29);
+}
+
+.likeBtn-dark {
+    border: 2px solid white;
+}
+
+.like-light {
+    color: var(--text-dark);
+    text-decoration-color: var(--text-dark);
+}
+
+.like-dark {
+    color: var(--text-alt2);
+    text-decoration-color: var(--text-alt2);
+}
+
+/* HEADER */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+
+    padding: 15px 5px;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    place-content: center space-between;
+    gap: 15%;
+}
+
+@media screen and (max-width: 480px){
+    .logo {
+        font-size: .85rem;
+    }
+}
+
+.logo {
+    text-decoration: none;
+    margin-left: 15px;
+    color: var(--text-alt);
+}
+
+.theme {
+    margin-right: 15px;
+    width: 30px;
+}
+
+/* TEXT STYLES */
+
+h2 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    text-decoration: underline;
+    text-decoration-color: var(--text-alt);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 4px;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 480px){
+    h2 {
+        font-size: 1.75rem;
+    }
+}
+
+.container-col h3 {
+    color: var(--text-alt);
+    margin-bottom: 5px;
+    font-size: 1.25rem;
+}
+
+.message {
+    color: var(--text-alt2);
+}
+
+.likeCount {
+    color: var(--text-alt);
+}
+
+.likeCount p {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+    margin-bottom: 3px;
+}
+
+
+/* INPUT | BUTTON | LIST STYLES */
+
+input {
+    padding: 4px 0;
+}
+
+@media screen and (max-width: 480px) {
+    input {
+    width: 40%;
+  }
+}
+
+
+main {
+    list-style: none;
+    margin-top: 25px;
+}
+
+@media screen and (min-width: 781px) {
+    main {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 780px) {
+    main {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+    main {
+    width: 90%;
+  }
+}
+
+.greeting {
+    cursor: pointer;
+    width: 90%;
+    padding: 5px;
+    margin: 5px 15px;
+    border-radius: 4px;
+    text-align: center;
+    transition: all 300ms;
+}
+
+.greeting div {
+    width: 65%;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.greeting:hover {
+    transform: scale(1.01);
+    border-color: lightskyblue;
+}
+
+button {
+    font-family: 'Share Tech Mono';
+    background-color: rgb(2, 13, 29);
+    color: white;
+    border: 1px solid rgb(200, 200, 200);
+    padding: 5px 15px;
+    border-radius: 2px;
+    transition: all 300ms;
+}
+
+button:hover {
+    background-color: rgb(4, 24, 53);
+    border: 1px solid lightskyblue;
+    color: salmon;
+}
+
+.likeBtn,
+.delBtn {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: border-color 300ms, background-color 300ms;
+}
+
+.likeBtn:hover {
+    border-color: lightskyblue;
+}
+
+.delBtn {
+    border: 2px solid rgb(160, 0, 0);
+}
+
+.delBtn:hover {
+    background-color: rgba(160, 0, 0, 0.3);
+}
+
+.likeBtn:active,
+.delBtn:active {
+    transform: scale(0.975);
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS/Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Hello World!</title>
+</head>
+
+<body>
+    <header class="">
+        <a href="/" class="logo">
+            <h1>'Hello World!'</h1>
+        </a>
+        <img class="theme" src="" alt="">
+    </header>
+    <h2>Say Hello to the World!</h2>
+    <!-- Form to add greetings -->
+    <form action="/greetings" method="POST">
+        <legend>Create a custom greeting!</legend>
+        <input type="text" class="addGreeting" name="greeting" placeholder="Greeting">
+        <button type="submit">Add</button>
+    </form>
+
+    <!-- Form to update greetings -->
+    <form action="/greetings" method="POST"></form>
+    <legend>Edit the greetings list!</legend>
+    <input type="text" class="changeGreeting" name="changeGreeting" placeholder="Select Greeting">
+    <input type="text" class="newGreeting" name="newGreeting" placeholder="New Greeting">
+    </form>
+    <button id="updateBtn">Change</button>
+
+    <!-- Message for invalid input/empty list -->
+    <div class="message"></div>
+
+    <!-- Rendering greetings list -->
+    <main>
+        <% for (let i=0; i < greetings.length; i++) { %>
+            <section class="container">
+                <div class="greeting greeting-dark container">
+                    <img class="delBtn <%=greetings[i].greeting.split(' ').join('-')%>" src="trash2.png" alt="">
+                    <div class="greetingText container-col">
+                        <h3 class="<%=greetings[i].greeting.split(' ').join('-') %>">
+                            <%=greetings[i].greeting %>
+                        </h3>
+                        <h6 class="likeCount">
+                            <p class="like-text">Likes</p>
+                            <%=greetings[i].likes%>
+                        </h6>
+                    </div>
+                    <img class="likeBtn <%=greetings[i].greeting.split(' ').join('-')%>" src="" alt="">
+                </div>
+            </section>
+            <% } %>
+    </main>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
