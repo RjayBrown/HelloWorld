@@ -17,9 +17,6 @@ if (!localStorage.getItem('theme')) {
     likeBtn.forEach(btn => {
         btn.classList.add('likeBtn-dark')
         btn.src = 'like.png'
-        btn.addEventListener('mouseover', () => {
-            btn.src = 'like3.png'
-        })
 
         btn.addEventListener('mouseout', () => {
             btn.src = 'like.png'
@@ -38,9 +35,6 @@ if (!localStorage.getItem('theme')) {
     likeBtn.forEach(btn => {
         btn.classList.add(localStorage.getItem('btn'))
         btn.src = localStorage.getItem('btn-img')
-        btn.addEventListener('mouseover', () => {
-            btn.src = 'like3.png'
-        })
 
         btn.addEventListener('mouseout', () => {
             btn.src = localStorage.getItem('btn-img')
@@ -120,7 +114,7 @@ const greetingBtn = document.querySelectorAll('.greeting')
 const msg = document.querySelector('.message')
 const likeCount = document.querySelector('.likeCount')
 
-// Send update request for greeting to server on click, reset likes counter
+// Send update request for greeting to server on click, reset likes counter if greeting is not similar
 updateBtn.addEventListener('click', async () => {
     try {
         if (!changeGreeting.value) {
@@ -128,15 +122,27 @@ updateBtn.addEventListener('click', async () => {
         } else if (!newGreeting.value) {
             msg.textContent = 'New greeting must not be empty'
         } else {
-            await fetch('/greetings', {
-                method: 'put',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    greeting: changeGreeting.value,
-                    newGreeting: newGreeting.value,
-                    newGreetingLikes: 0
+            if (!newGreeting.value.includes(changeGreeting.value)) {
+                await fetch('/greetings', {
+                    method: 'put',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        greeting: changeGreeting.value,
+                        newGreeting: newGreeting.value,
+                        newGreetingLikes: 0
+
+                    })
                 })
-            })
+            } else {
+                await fetch('/greetings', {
+                    method: 'put',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        greeting: changeGreeting.value,
+                        newGreeting: newGreeting.value,
+                    })
+                })
+            }
             window.location.reload(true)
         }
     }

@@ -32,7 +32,7 @@
 
     <!-- Form to update greetings -->
     <form action="/greetings" method="POST"></form>
-    <legend>Edit the greetings list!</legend>
+    <legend>Improve a greeting! (Be careful or the likes will reset!)</legend>
     <input type="text" class="changeGreeting" name="changeGreeting" placeholder="Select Greeting">
     <input type="text" class="newGreeting" name="newGreeting" placeholder="New Greeting">
     </form>
@@ -53,7 +53,9 @@
                         </h3>
                         <h6 class="likeCount">
                             <p class="like-text">Likes</p>
-                            <%=greetings[i].likes%>
+                            <p class="count">
+                                <%=greetings[i].likes%>
+                            </p>
                         </h6>
                     </div>
                     <img class="likeBtn <%=greetings[i].greeting.split(' ').join('-')%>" src="" alt="">

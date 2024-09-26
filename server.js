@@ -114,17 +114,30 @@ async function connectToDb() {
         })
 
         // UPDATE - change greeting
-        app.put('/greetings', (req, res) => {
+        app.put('/greetings', async (req, res) => {
             try {
-                greetingsCollection
-                    // findOneAndUpdate() args - key for query filter, update, options
-                    .findOneAndUpdate({ greeting: req.body.greeting }, {
-                        $set: {
-                            greeting: req.body.newGreeting,
-                            likes: req.body.newGreetingLikes
-                        },
-                    }
-                    )
+                const selected = await greetingsCollection.findOne({ greeting: req.body.greeting })
+                if (req.body.newGreetingLikes === undefined) {
+                    greetingsCollection
+                        // findOneAndUpdate() args - { key: value } for query filter, update, options
+                        .findOneAndUpdate({ greeting: req.body.greeting }, {
+                            $set: {
+                                greeting: req.body.newGreeting,
+                                likes: selected.likes
+                            },
+                        }
+                        )
+                } else {
+                    greetingsCollection
+                        // findOneAndUpdate() args - { key: value } for query filter, update, options
+                        .findOneAndUpdate({ greeting: req.body.greeting }, {
+                            $set: {
+                                greeting: req.body.newGreeting,
+                                likes: req.body.newGreetingLikes
+                            },
+                        }
+                        )
+                }
                 res.json().statusCode = 200
                 res.json().statusMessage = 'OK'
                 console.log('Updated greeting!')

@@ -165,6 +165,11 @@ h2 {
     margin-bottom: 3px;
 }
 
+.likeCount .count {
+    margin-top: 5px;
+    text-decoration: none;
+}
+
 
 /* INPUT | BUTTON | LIST STYLES */
 
@@ -246,11 +251,11 @@ button:hover {
     height: 20px;
     padding: 5px;
     border-radius: 50%;
-    transition: border-color 300ms, background-color 300ms;
+    transition: background-color 300ms;
 }
 
 .likeBtn:hover {
-    border-color: lightskyblue;
+    background-color: rgba(135, 206, 250, 0.3)
 }
 
 .delBtn {
