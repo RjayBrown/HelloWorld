@@ -24,14 +24,14 @@
     </header>
     <h2>Say Hello to the World!</h2>
     <!-- Form to add greetings -->
-    <form action="/greetings" method="POST">
+    <form action="/addGreeting" method="POST">
         <legend>Create a custom greeting!</legend>
         <input type="text" class="addGreeting" name="greeting" placeholder="Greeting">
         <button type="submit">Add</button>
     </form>
 
     <!-- Form to update greetings -->
-    <form action="/greetings" method="POST"></form>
+    <form action="/updateGreeting" method="POST"></form>
     <legend>Improve a greeting! (Be careful or the likes will reset!)</legend>
     <input type="text" class="changeGreeting" name="changeGreeting" placeholder="Select Greeting">
     <input type="text" class="newGreeting" name="newGreeting" placeholder="New Greeting">

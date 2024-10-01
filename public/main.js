@@ -97,6 +97,22 @@ themeToggle.addEventListener('click', () => {
     }
 })
 
+// Greetings list
+const greetings = document.querySelectorAll('.greetingText')
+const greetingBtn = document.querySelectorAll('.greeting')
+const likeCount = document.querySelector('.likeCount')
+
+// Handle empty list on page load, connect rendered greetings to input field for update/delete requests
+if (!greetings) {
+    msg.textContent = 'Add your first greeting here!'
+} else {
+    for (let greeting of greetings) {
+        greeting.addEventListener('click', () => {
+            changeGreeting.value = greeting.firstElementChild.textContent.trim()
+        })
+    }
+}
+
 // Input fields
 const addGreeting = document.querySelector('.addGreeting')
 const changeGreeting = document.querySelector('.changeGreeting')
@@ -106,16 +122,25 @@ const newGreeting = document.querySelector('.newGreeting')
 const updateBtn = document.querySelector('#updateBtn')
 const delBtn = document.querySelectorAll('.delBtn')
 
-// Greetings list
-const greetings = document.querySelectorAll('.greetingText')
-const greetingBtn = document.querySelectorAll('.greeting')
-
-
+// Alerts
 const msg = document.querySelector('.message')
-const likeCount = document.querySelector('.likeCount')
 
-// Send update request for greeting to server on click, reset likes counter if greeting is not similar
-updateBtn.addEventListener('click', async () => {
+// Send update request for greeting to server on click
+// Resets likes counter if new greeting is not similar enough
+updateBtn.addEventListener('click', updateGreeting)
+
+// Increase like count and update database
+likeBtn.forEach(btn => {
+    btn.addEventListener('click', addLike)
+})
+
+// Send delete request to server on click
+delBtn.forEach(btn => {
+    btn.addEventListener('click', deleteGreeting)
+})
+
+// Async fetch functions (put/delete requests)
+async function updateGreeting() {
     try {
         if (!changeGreeting.value) {
             msg.textContent = 'Choose greeting to update'
@@ -123,7 +148,7 @@ updateBtn.addEventListener('click', async () => {
             msg.textContent = 'New greeting must not be empty'
         } else {
             if (!newGreeting.value.includes(changeGreeting.value)) {
-                await fetch('/greetings', {
+                await fetch('/updateGreeting', {
                     method: 'put',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -134,7 +159,7 @@ updateBtn.addEventListener('click', async () => {
                     })
                 })
             } else {
-                await fetch('/greetings', {
+                await fetch('/updateGreeting', {
                     method: 'put',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -143,60 +168,45 @@ updateBtn.addEventListener('click', async () => {
                     })
                 })
             }
-            window.location.reload(true)
         }
+        window.location.reload(true)
     }
     catch {
         console.log('Fetch (update greetings) error!')
     }
-})
+}
 
-// increase like count and update database
-likeBtn.forEach(btn => {
-    btn.addEventListener('click', async () => {
-        try {
-            await fetch('/likes', {
-                method: 'put',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    greeting: btn.classList[1].split('-').join(' ')
-                })
+async function addLike() {
+    const greeting = this.classList[1].split('-').join(' ')
+    try {
+        const response = await fetch('/addLike', {
+            method: 'put',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                greeting: greeting
             })
-            window.location.reload(true)
-        }
-        catch {
-            console.log('Fetch (update likes) error!')
-        }
-    })
-})
-
-// Send delete request to server on button click
-delBtn.forEach(btn => {
-    btn.addEventListener('click', async () => {
-        try {
-            await fetch('/greetings', {
-                method: 'delete',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    greeting: btn.classList[1].split('-').join(' ')
-                })
-            })
-            window.location.reload(true)
-        }
-        catch {
-            console.log('Fetch (delete greeting) error!')
-        }
-    })
-})
-
-// Handle empty list on page load, connect rendered greetings to input field for update/delete requests
-if (!greetings) {
-    msg.textContent = 'Add your first greeting here!'
-} else {
-    for (let greeting of greetings) {
-        greeting.addEventListener('click', () => {
-            changeGreeting.value = greeting.firstElementChild.textContent.trim()
-            // console.log(greeting)
         })
+        window.location.reload(true)
+    }
+    catch {
+        console.log('Fetch (update likes) error!')
+    }
+}
+
+
+async function deleteGreeting() {
+    try {
+        const greeting = this.classList[1].split('-').join(' ')
+        await fetch('/deleteGreeting', {
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                greeting: greeting
+            })
+        })
+        window.location.reload(true)
+    }
+    catch {
+        console.log('Fetch (delete greeting) error!')
     }
 }
